@@ -1,7 +1,8 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "n8n.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
-{{- if semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- $k8sVersion := .Capabilities.KubeVersion.GitVersion -}}
+{{- if semverCompare ">=1.16-0" $k8sVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else -}}
 apiVersion: extensions/v1beta1
@@ -34,7 +35,7 @@ spec:
           {{- range .paths }}
           - path: {{ . }}
             backend:
-              {{- if semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion -}}
+              {{- if semverCompare ">=1.16-0" $k8sVersion -}}
               service:
                 name: {{ $fullName }}
                 port:
