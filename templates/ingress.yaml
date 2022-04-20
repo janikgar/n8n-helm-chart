@@ -34,9 +34,6 @@ spec:
         paths:
           {{- range .paths }}
           - path: {{ . }}
-            {{- if semverCompare ">=1.16-0" $k8sVersion -}}
-            pathType: ImplementationSpecific
-            {{- end -}}
             backend:
               {{- if semverCompare ">=1.16-0" $k8sVersion -}}
               service:
@@ -47,6 +44,9 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
               {{- end -}}
+            {{- if semverCompare ">=1.16-0" $k8sVersion -}}
+            pathType: ImplementationSpecific
+            {{- end -}}
           {{- end }}
     {{- end }}
   {{- end }}
