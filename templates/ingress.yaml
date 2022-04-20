@@ -38,12 +38,12 @@ spec:
             pathType: ImplementationSpecific
             {{- end }}
             backend:
-              {{- if semverCompare ">=1.16-0" $k8sVersion -}}
+              {{- if semverCompare ">=1.16-0" $k8sVersion }}
               service:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
-              {{- else -}}
+              {{- else }}
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
               {{- end -}}
