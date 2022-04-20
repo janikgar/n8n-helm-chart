@@ -36,7 +36,7 @@ spec:
           - path: {{ . }}
             {{- if semverCompare ">=1.16-0" $k8sVersion -}}
             pathType: ImplementationSpecific
-            {{- end - }}
+            {{- end -}}
             backend:
               {{- if semverCompare ">=1.16-0" $k8sVersion -}}
               service:
